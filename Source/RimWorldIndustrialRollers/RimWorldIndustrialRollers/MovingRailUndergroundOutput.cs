@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MovingFloor;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace RimWorldIndustrialRollers;
@@ -25,7 +26,24 @@ public class MovingRailUndergroundOutput : Building, IRail
 
     private int _tickCounter = 1;
 
+    private Graphic currentGraphic;
+
     public MovingRailUndergroundInput InputRoller;
+
+    private int outputDirection;
+
+    public override Graphic Graphic
+    {
+        get
+        {
+            if (currentGraphic == null)
+            {
+                updateCurrentGraphics();
+            }
+
+            return currentGraphic;
+        }
+    }
 
     public void UpdateGraphics()
     {
@@ -68,19 +86,103 @@ public class MovingRailUndergroundOutput : Building, IRail
 
     public IntVec3 GetNextPositionForThing(Thing thing)
     {
-        var result = default(IntVec3);
-        result.z += (int)(thing.Position.ToVector3().z + Rotation.FacingCell.z);
-        result.y += (int)(thing.Position.ToVector3().y + Rotation.FacingCell.y);
-        result.x += (int)(thing.Position.ToVector3().x + Rotation.FacingCell.x);
+        var result = new IntVec3(thing.Position.ToVector3());
+        switch (outputDirection)
+        {
+            case 0: // Straight
+                result.z += Rotation.FacingCell.z;
+                result.y += Rotation.FacingCell.y;
+                result.x += Rotation.FacingCell.x;
+                break;
+            case 1: // Left
+                switch ((int)Math.Floor(Rotation.AsAngle))
+                {
+                    case 0:
+                        result.x--;
+                        break;
+                    case 90:
+                        result.z++;
+                        break;
+                    case 180:
+                        result.x++;
+                        break;
+                    case 270:
+                        result.z--;
+                        break;
+                }
+
+                break;
+            case 2: // Right
+                switch ((int)Math.Floor(Rotation.AsAngle))
+                {
+                    case 0:
+                        result.x++;
+                        break;
+                    case 90:
+                        result.z--;
+                        break;
+                    case 180:
+                        result.x--;
+                        break;
+                    case 270:
+                        result.z++;
+                        break;
+                }
+
+                break;
+        }
+
         return result;
     }
 
     public IntVec3 GetNextPositionForDirection()
     {
-        var result = default(IntVec3);
-        result.z += (int)(Position.ToVector3().z + Rotation.FacingCell.z);
-        result.y += (int)(Position.ToVector3().y + Rotation.FacingCell.y);
-        result.x += (int)(Position.ToVector3().x + Rotation.FacingCell.x);
+        var result = new IntVec3(Position.ToVector3());
+        switch (outputDirection)
+        {
+            case 0: // Straight
+                result.z += Rotation.FacingCell.z;
+                result.y += Rotation.FacingCell.y;
+                result.x += Rotation.FacingCell.x;
+                break;
+            case 1: // Left
+                switch ((int)Math.Floor(Rotation.AsAngle))
+                {
+                    case 0:
+                        result.x--;
+                        break;
+                    case 90:
+                        result.z++;
+                        break;
+                    case 180:
+                        result.x++;
+                        break;
+                    case 270:
+                        result.z--;
+                        break;
+                }
+
+                break;
+            case 2: // Right
+                switch ((int)Math.Floor(Rotation.AsAngle))
+                {
+                    case 0:
+                        result.x++;
+                        break;
+                    case 90:
+                        result.z--;
+                        break;
+                    case 180:
+                        result.x--;
+                        break;
+                    case 270:
+                        result.z++;
+                        break;
+                }
+
+                break;
+        }
+
         return result;
     }
 
@@ -91,6 +193,28 @@ public class MovingRailUndergroundOutput : Building, IRail
 
     public void SetGraphic(Graphic[] graphics)
     {
+        switch (outputDirection)
+        {
+            case 1: // Left
+                for (var index = 0; index < graphics.Length; index++)
+                {
+                    graphics[index] = GraphicDatabase.Get<Graphic_Single>(graphics[index].path.Replace("_out", "_left"),
+                        graphics[index].Shader,
+                        graphics[index].drawSize, graphics[index].Color, graphics[index].ColorTwo);
+                }
+
+                break;
+            case 2: // Right
+                for (var index = 0; index < graphics.Length; index++)
+                {
+                    graphics[index] = GraphicDatabase.Get<Graphic_Single>(
+                        graphics[index].path.Replace("_out", "_right"), graphics[index].Shader,
+                        graphics[index].drawSize, graphics[index].Color, graphics[index].ColorTwo);
+                }
+
+                break;
+        }
+
         graphic = graphics;
     }
 
@@ -117,6 +241,24 @@ public class MovingRailUndergroundOutput : Building, IRail
     public void AddStuckTick()
     {
         _stuckTicks++;
+    }
+
+    private void updateCurrentGraphics()
+    {
+        var path = def.graphicData.texPath;
+        switch (outputDirection)
+        {
+            case 1: // Left
+                path = path.Replace("_out", "_left");
+                break;
+            case 2: // Right
+                path = path.Replace("_out", "_right");
+                break;
+        }
+
+        currentGraphic = GraphicDatabase.Get<Graphic_Single>(path, def.graphic.Shader,
+            def.graphic.drawSize, def.graphic.Color, def.graphic.ColorTwo);
+        Map.mapDrawer.MapMeshDirty(Position, MapMeshFlag.Things);
     }
 
     public void SetInputRoller(MovingRailUndergroundInput inputRoller)
@@ -213,9 +355,50 @@ public class MovingRailUndergroundOutput : Building, IRail
         base.Destroy(mode);
     }
 
+    public override IEnumerable<Gizmo> GetGizmos()
+    {
+        foreach (var gizmo in base.GetGizmos())
+        {
+            yield return gizmo;
+        }
+
+        var command_Action = new Command_Action();
+
+        switch (outputDirection)
+        {
+            case 0: // Straight
+                command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/ArrowStraight");
+                command_Action.defaultDesc = "MovingRail_ExitStraight".Translate();
+                break;
+            case 1: // Left
+                command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/ArrowLeft");
+                command_Action.defaultDesc = "MovingRail_ExitLeft".Translate();
+                break;
+            case 2: // Right
+                command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/ArrowRight");
+                command_Action.defaultDesc = "MovingRail_ExitRight".Translate();
+                break;
+        }
+
+        command_Action.action = delegate
+        {
+            outputDirection++;
+            if (outputDirection > 2)
+            {
+                outputDirection = 0;
+            }
+
+            UpdateGraphics();
+            updateCurrentGraphics();
+        };
+
+        yield return command_Action;
+    }
+
     public override void ExposeData()
     {
-        Scribe_References.Look(ref InputRoller, "InputRoller");
+        //Scribe_References.Look(ref InputRoller, "InputRoller");
+        Scribe_Values.Look(ref outputDirection, "outputDirection", 0, true);
         base.ExposeData();
     }
 

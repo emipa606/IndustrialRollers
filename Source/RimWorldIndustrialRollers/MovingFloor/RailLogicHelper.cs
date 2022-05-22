@@ -550,21 +550,13 @@ internal class RailLogicHelper
     public Graphic Graphic()
     {
         var graphic = ((IRail)_rail).GetGraphic();
-        if (graphic == null || graphic[0] == null)
-        {
-            ((IRail)_rail).UpdateGraphics();
-            if (graphic == null || graphic[0] == null)
-            {
-                return null;
-            }
-        }
-
-        if (graphic[_currGraphicFrame] != null)
+        if (graphic?[0] != null)
         {
             return graphic[_currGraphicFrame];
         }
 
-        return null;
+        ((IRail)_rail).UpdateGraphics();
+        return graphic?[0] == null ? null : graphic[_currGraphicFrame];
     }
 
     public static void DrawArrowPointingAt(Vector3 from, Vector3 to, bool offscreenOnly = false)

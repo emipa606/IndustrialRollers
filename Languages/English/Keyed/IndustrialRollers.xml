@@ -20,4 +20,7 @@
   <MovingRail_PullerSettingsChanged>New pulling settings saved.</MovingRail_PullerSettingsChanged>
   <MovingRail_ModName>Industrial Rollers</MovingRail_ModName>
   <MovingRail_HardCoreMode>Hardcore Mode</MovingRail_HardCoreMode>
+  <MovingRail_ExitStraight>Output straight</MovingRail_ExitStraight>
+  <MovingRail_ExitLeft>Output left</MovingRail_ExitLeft>
+  <MovingRail_ExitRight>Output right</MovingRail_ExitRight>
 </LanguageData>
