@@ -47,24 +47,24 @@
     <castEdgeShadows>true</castEdgeShadows>
   </ThingDef>
   <!-- Straight belt -->
-  <ThingDef ParentName="RollerBase">
-    <defName>MovingRailStraight</defName>
-    <label>Straight roller</label>
+  <ThingDef ParentName="RollerBase" Name="RollerStraightBase" Abstract="True">
     <graphicData>
-      <texPath>Things/Building/MovingFloor/base64_frame0</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <damageData>
         <rect>(0,0.35,1,0.3)</rect>
       </damageData>
       <drawSize>(1,1)</drawSize>
     </graphicData>
-    <uiIconPath>Things/Building/MovingFloor/base64</uiIconPath>
+    <designatorDropdown>MovingRail_Straight</designatorDropdown>
     <placingDraggableDimensions>1</placingDraggableDimensions>
     <thingClass>MovingFloor.MovingRailBase</thingClass>
     <description>A straight piece of industrial roller to carry goods on. also transmits power to nearby electronics and rollers.</description>
     <placeWorkers>
       <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_BasicRollers</li>
+    </researchPrerequisites>
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
@@ -74,6 +74,46 @@
       </li>
       <li Class="CompProperties_Flickable" />
     </comps>
+  </ThingDef>
+  <ThingDef ParentName="RollerStraightBase">
+    <defName>MovingRailStraight</defName>
+    <label>Straight roller</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_s</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_s</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="RollerStraightBase">
+    <defName>MovingRailStraightWest</defName>
+    <label>Straight roller, left join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_tl</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_tl</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="RollerStraightBase">
+    <defName>MovingRailStraightEast</defName>
+    <label>Straight roller, right join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_tr</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_tr</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="RollerStraightBase">
+    <defName>MovingRailStraightT</defName>
+    <label>Straight roller, T-join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_tc</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_tc</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="RollerStraightBase">
+    <defName>MovingRailStraightFourway</defName>
+    <label>Straight roller, Fourway-join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_tf</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_tf</uiIconPath>
   </ThingDef>
   <!-- Left turn belt -->
   <ThingDef ParentName="RollerBase">
@@ -93,6 +133,9 @@
     <placeWorkers>
       <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_BasicRollers</li>
+    </researchPrerequisites>
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
@@ -121,6 +164,9 @@
     <placeWorkers>
       <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_BasicRollers</li>
+    </researchPrerequisites>
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
@@ -151,6 +197,9 @@
     <placeWorkers>
       <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_AdvancedRollers</li>
+    </researchPrerequisites>
     <fillPercent>1</fillPercent>
     <passability>Impassable</passability>
     <blockWind>true</blockWind>
@@ -174,6 +223,188 @@
         <compClass>CompPowerTrader</compClass>
         <shortCircuitInRain>false</shortCircuitInRain>
         <basePowerConsumption>5</basePowerConsumption>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable" />
+    </comps>
+  </ThingDef>
+  <!-- Underground belt - Input -->
+  <ThingDef ParentName="RollerBase" Name="MovingRailUndergroundBase" Abstract="True">
+    <constructionSkillPrerequisite>13</constructionSkillPrerequisite>
+    <graphicData>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <designatorDropdown>MovingRail_UndergroundInput</designatorDropdown>
+    <thingClass>RimWorldIndustrialRollers.MovingRailUndergroundInput</thingClass>
+    <description>Underground input roller piece. also transmits power to nearby electronics and rollers.</description>
+    <placeWorkers>
+      <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
+    </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_AdvancedRollers</li>
+    </researchPrerequisites>
+    <costList>
+      <Steel>60</Steel>
+      <Plasteel>5</Plasteel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>80</WorkToBuild>
+      <Flammability>0.4</Flammability>
+      <Beauty>-1</Beauty>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>false</shortCircuitInRain>
+        <basePowerConsumption>30</basePowerConsumption>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable" />
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="MovingRailUndergroundBase">
+    <defName>MovingRailUndergroundInput</defName>
+    <label>Underground roller input, straight</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_underground_in_frame0</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_underground_in</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="MovingRailUndergroundBase">
+    <defName>MovingRailUndergroundInputWest</defName>
+    <label>Underground roller input, left join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/underground_l_in</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/underground_l_in</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="MovingRailUndergroundBase">
+    <defName>MovingRailUndergroundInputEast</defName>
+    <label>Underground roller input, right join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/underground_r_in</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/underground_r_in</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="MovingRailUndergroundBase">
+    <defName>MovingRailUndergroundInputTWest</defName>
+    <label>Underground roller input, center and left join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/underground_tee_l_in</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/underground_tee_l_in</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="MovingRailUndergroundBase">
+    <defName>MovingRailUndergroundInputTEast</defName>
+    <label>Underground roller input, center and right join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/underground_tee_r_in</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/underground_tee_r_in</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="MovingRailUndergroundBase">
+    <defName>MovingRailUndergroundInputTEastWest</defName>
+    <label>Underground roller input, left and right join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/underground_tee_c_in</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/underground_tee_c_in</uiIconPath>
+  </ThingDef>
+  <ThingDef ParentName="MovingRailUndergroundBase">
+    <defName>MovingRailUndergroundInputTFull</defName>
+    <label>Underground roller input, threeway join</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/underground_4way_in</texPath>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/underground_4way_in</uiIconPath>
+  </ThingDef>
+  <!-- Underground belt - Output -->
+  <ThingDef ParentName="RollerBase">
+    <constructionSkillPrerequisite>13</constructionSkillPrerequisite>
+    <defName>MovingRailUndergroundOutput</defName>
+    <label>Underground roller output</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_underground_out_frame0</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_underground_out</uiIconPath>
+    <thingClass>RimWorldIndustrialRollers.MovingRailUndergroundOutput</thingClass>
+    <description>Underground output roller piece. also transmits power to nearby electronics and rollers.</description>
+    <placeWorkers>
+      <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
+      <li>RimWorldIndustrialRollers.PlaceWorker_NextToUndergroundRoller</li>
+    </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_AdvancedRollers</li>
+    </researchPrerequisites>
+    <costList>
+      <Steel>60</Steel>
+      <Plasteel>5</Plasteel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>80</WorkToBuild>
+      <Flammability>0.4</Flammability>
+      <Beauty>-1</Beauty>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>false</shortCircuitInRain>
+        <basePowerConsumption>30</basePowerConsumption>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable" />
+    </comps>
+  </ThingDef>
+  <!-- Splitter belt -->
+  <ThingDef ParentName="RollerBase">
+    <defName>MovingRailSplitter</defName>
+    <label>Splitter roller</label>
+    <graphicData>
+      <texPath>Things/Building/MovingFloor/base64_splitter_frame0</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+      <drawSize>(2,1)</drawSize>
+    </graphicData>
+    <uiIconPath>Things/Building/MovingFloor/base64_splitter</uiIconPath>
+    <thingClass>MovingFloor.MovingRailSplitter</thingClass>
+    <description>Splits or merges one belt into two, or two belts into one. This mechanical splitter is cheaper than the Pusher and also consumes less energy, but it splits items without the ability to filter.</description>
+    <placeWorkers>
+      <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
+    </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_AdvancedRollers</li>
+    </researchPrerequisites>
+    <size>(2,1)</size>
+    <costList>
+      <Steel>35</Steel>
+    </costList>
+    <statBases>
+      <MaxHitPoints>160</MaxHitPoints>
+      <WorkToBuild>160</WorkToBuild>
+      <Flammability>0.4</Flammability>
+      <Mass>20</Mass>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>false</shortCircuitInRain>
+        <basePowerConsumption>10</basePowerConsumption>
         <transmitsPower>true</transmitsPower>
       </li>
       <li Class="CompProperties_Flickable" />
@@ -212,6 +443,9 @@
       <li>RimWorldIndustrialRollers.PlaceWorker_NextToRail</li>
       <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_BasicRollers</li>
+    </researchPrerequisites>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
       <WorkToBuild>300</WorkToBuild>
@@ -263,6 +497,9 @@
       <li>RimWorldIndustrialRollers.PlaceWorker_NextToRailAndStockpile</li>
       <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirectionReverse</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_BasicRollers</li>
+    </researchPrerequisites>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
       <WorkToBuild>300</WorkToBuild>
@@ -275,45 +512,6 @@
         <compClass>CompPowerTrader</compClass>
         <shortCircuitInRain>false</shortCircuitInRain>
         <basePowerConsumption>60</basePowerConsumption>
-        <transmitsPower>true</transmitsPower>
-      </li>
-      <li Class="CompProperties_Flickable" />
-    </comps>
-  </ThingDef>
-  <!-- Splitter belt -->
-  <ThingDef ParentName="RollerBase">
-    <defName>MovingRailSplitter</defName>
-    <label>Splitter roller</label>
-    <graphicData>
-      <texPath>Things/Building/MovingFloor/base64_splitter_frame0</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <damageData>
-        <rect>(0,0.35,1,0.3)</rect>
-      </damageData>
-      <drawSize>(2,1)</drawSize>
-    </graphicData>
-    <uiIconPath>Things/Building/MovingFloor/base64_splitter</uiIconPath>
-    <thingClass>MovingFloor.MovingRailSplitter</thingClass>
-    <description>Splits or merges one belt into two, or two belts into one. This mechanical splitter is cheaper than the Pusher and also consumes less energy, but it splits items without the ability to filter.</description>
-    <placeWorkers>
-      <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
-    </placeWorkers>
-    <size>(2,1)</size>
-    <costList>
-      <Steel>35</Steel>
-    </costList>
-    <statBases>
-      <MaxHitPoints>160</MaxHitPoints>
-      <WorkToBuild>160</WorkToBuild>
-      <Flammability>0.4</Flammability>
-      <Mass>20</Mass>
-      <Beauty>-2</Beauty>
-    </statBases>
-    <comps>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerTrader</compClass>
-        <shortCircuitInRain>false</shortCircuitInRain>
-        <basePowerConsumption>10</basePowerConsumption>
         <transmitsPower>true</transmitsPower>
       </li>
       <li Class="CompProperties_Flickable" />
@@ -349,6 +547,9 @@
       <li>RimWorldIndustrialRollers.PlaceWorker_NextToGrowingZoneAndRail</li>
       <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirectionReverse</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>MovingRail_AdvancedRollers</li>
+    </researchPrerequisites>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
       <WorkToBuild>300</WorkToBuild>
@@ -361,87 +562,6 @@
         <compClass>CompPowerTrader</compClass>
         <shortCircuitInRain>false</shortCircuitInRain>
         <basePowerConsumption>60</basePowerConsumption>
-        <transmitsPower>true</transmitsPower>
-      </li>
-      <li Class="CompProperties_Flickable" />
-    </comps>
-  </ThingDef>
-  <!-- Underground belt - Input -->
-  <ThingDef ParentName="RollerBase">
-    <constructionSkillPrerequisite>13</constructionSkillPrerequisite>
-    <defName>MovingRailUndergroundInput</defName>
-    <label>Underground roller input</label>
-    <graphicData>
-      <texPath>Things/Building/MovingFloor/base64_underground_in_frame0</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <damageData>
-        <rect>(0,0.35,1,0.3)</rect>
-      </damageData>
-      <drawSize>(1,1)</drawSize>
-    </graphicData>
-    <uiIconPath>Things/Building/MovingFloor/base64_underground_in</uiIconPath>
-    <thingClass>RimWorldIndustrialRollers.MovingRailUndergroundInput</thingClass>
-    <description>Underground input roller piece. also transmits power to nearby electronics and rollers.</description>
-    <placeWorkers>
-      <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
-    </placeWorkers>
-    <costList>
-      <Steel>60</Steel>
-      <Plasteel>5</Plasteel>
-      <ComponentIndustrial>1</ComponentIndustrial>
-    </costList>
-    <statBases>
-      <MaxHitPoints>80</MaxHitPoints>
-      <WorkToBuild>80</WorkToBuild>
-      <Flammability>0.4</Flammability>
-      <Beauty>-1</Beauty>
-    </statBases>
-    <comps>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerTrader</compClass>
-        <shortCircuitInRain>false</shortCircuitInRain>
-        <basePowerConsumption>30</basePowerConsumption>
-        <transmitsPower>true</transmitsPower>
-      </li>
-      <li Class="CompProperties_Flickable" />
-    </comps>
-  </ThingDef>
-  <!-- Underground belt - Output -->
-  <ThingDef ParentName="RollerBase">
-    <constructionSkillPrerequisite>13</constructionSkillPrerequisite>
-    <defName>MovingRailUndergroundOutput</defName>
-    <label>Underground roller output</label>
-    <graphicData>
-      <texPath>Things/Building/MovingFloor/base64_underground_out_frame0</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <damageData>
-        <rect>(0,0.35,1,0.3)</rect>
-      </damageData>
-      <drawSize>(1,1)</drawSize>
-    </graphicData>
-    <uiIconPath>Things/Building/MovingFloor/base64_underground_out</uiIconPath>
-    <thingClass>RimWorldIndustrialRollers.MovingRailUndergroundOutput</thingClass>
-    <description>Underground output roller piece. also transmits power to nearby electronics and rollers.</description>
-    <placeWorkers>
-      <li>RimWorldIndustrialRollers.PlaceWorker_ShowOutputDirection</li>
-      <li>RimWorldIndustrialRollers.PlaceWorker_NextToUndergroundRoller</li>
-    </placeWorkers>
-    <costList>
-      <Steel>60</Steel>
-      <Plasteel>5</Plasteel>
-      <ComponentIndustrial>1</ComponentIndustrial>
-    </costList>
-    <statBases>
-      <MaxHitPoints>80</MaxHitPoints>
-      <WorkToBuild>80</WorkToBuild>
-      <Flammability>0.4</Flammability>
-      <Beauty>-1</Beauty>
-    </statBases>
-    <comps>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerTrader</compClass>
-        <shortCircuitInRain>false</shortCircuitInRain>
-        <basePowerConsumption>30</basePowerConsumption>
         <transmitsPower>true</transmitsPower>
       </li>
       <li Class="CompProperties_Flickable" />

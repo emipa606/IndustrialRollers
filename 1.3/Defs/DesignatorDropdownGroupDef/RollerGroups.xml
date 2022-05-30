@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DesignatorDropdownGroupDef>
+    <defName>MovingRail_Straight</defName>
+  </DesignatorDropdownGroupDef>
+  <DesignatorDropdownGroupDef>
+    <defName>MovingRail_UndergroundInput</defName>
+  </DesignatorDropdownGroupDef>
+</Defs>

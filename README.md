@@ -5,6 +5,8 @@
 Update of historics mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=784327493
 
+- Added selectable direction for the underground output roller. 
+
 ![Image](https://i.imgur.com/pufA0kM.png)
 
 	

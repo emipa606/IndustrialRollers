@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ResearchProjectDef>
+    <defName>MovingRail_BasicRollers</defName>
+    <label>Basic rollers</label>
+    <description>A set of basic rollers</description>
+    <baseCost>800</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>Electricity</li>
+    </prerequisites>
+    <researchViewX>7.00</researchViewX>
+    <researchViewY>5.50</researchViewY>
+  </ResearchProjectDef>
+  <ResearchProjectDef>
+    <defName>MovingRail_AdvancedRollers</defName>
+    <label>Advanced rollers</label>
+    <description>More advanced rollers</description>
+    <baseCost>1200</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>MovingRail_BasicRollers</li>
+    </prerequisites>
+    <researchViewX>8.00</researchViewX>
+    <researchViewY>5.50</researchViewY>
+  </ResearchProjectDef>
+</Defs>
